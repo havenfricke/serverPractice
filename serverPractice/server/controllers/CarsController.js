@@ -1,4 +1,5 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
+import { carsService } from "../services/CarsService";
 import BaseController from "../utils/BaseController";
 
 export class CarsController extends BaseController{
@@ -12,37 +13,45 @@ export class CarsController extends BaseController{
         .put('/:id', this.editCar)
         .delete('/:id', this.removeCar)
     }
-    removeCar(req, res, next) {
+    async removeCar(req, res, next) {
           try {
-            
+            req.body.creatorId = req.userInfo.id
+            const car = await carsService.createCar(req.body)
+            return res.send(car)
         } catch (error) {
             next(error)
         }
     }
-    editCar(req, res, next) {
+    async editCar(req, res, next) {
           try {
-            
+            req.body.creatorId = req.userInfo.id
+            req.body.id = req.params.id
+            const update = await carsService.editCar(req.body)
+            return res.send(update)
         } catch (error) {
             next(error)
         }
     }
-    createCar(req, res, next) {
+    async createCar(req, res, next) {
           try {
-            
+            req.body.creatorId = req.userInfo.id
+            const car = await carsService.create(req.body)
         } catch (error) {
             next(error)
         }
     }
-    getCarById(req, res, next) {
+    async getCarById(req, res, next) {
         try {
-            
+            const car = await carsService.getCarById(req.params.id)
+            return res.send(car)
         } catch (error) {
             next(error)
         }
     }
-    getAllCars(req, res, next) {
+    async getAllCars(req, res, next) {
         try {
-            
+            const cars = await carsService.getAllCars(req.query)
+            res.send(cars)
         } catch (error) {
             next(error)
         }

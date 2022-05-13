@@ -14,3 +14,10 @@ export const CarSchema = new Schema (
     { timestamps: true, toJSON: { virtuals: true}}
 )
 
+CarSchema.virtual('creator', {
+    localField: 'creatorId',
+    foreignField: '_id',
+    justOne: true,
+    ref: 'Profile'
+  })
+
