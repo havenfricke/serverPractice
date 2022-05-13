@@ -9,7 +9,8 @@ export const CarSchema = new Schema (
         year: { type: Number, required: true},
         price: { type: Number, required: true},
         imgUrl: { type: String, required: true},
-        color: { type: String, required: true}
+        color: { type: String, required: true},
+        creatorId: { type: String, required: true}
     },
     { timestamps: true, toJSON: { virtuals: true}}
 )

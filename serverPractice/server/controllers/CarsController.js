@@ -16,7 +16,7 @@ export class CarsController extends BaseController{
     async removeCar(req, res, next) {
           try {
             req.body.creatorId = req.userInfo.id
-            const car = await carsService.createCar(req.body)
+            const car = await carsService.removeCar(req.body)
             return res.send(car)
         } catch (error) {
             next(error)
@@ -35,7 +35,7 @@ export class CarsController extends BaseController{
     async createCar(req, res, next) {
           try {
             req.body.creatorId = req.userInfo.id
-            const car = await carsService.create(req.body)
+            const car = await carsService.createCar(req.body)
         } catch (error) {
             next(error)
         }
